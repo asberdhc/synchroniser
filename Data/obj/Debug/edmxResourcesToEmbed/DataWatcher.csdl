@@ -1,0 +1,1793 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DataProductsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CatBrand">
+    <Key>
+      <PropertyRef Name="IdBrand" />
+    </Key>
+    <Property Name="IdBrand" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_CatBrandsProducts" FromRole="CatBrands" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="CatCatalog">
+    <Key>
+      <PropertyRef Name="IdCatalog" />
+    </Key>
+    <Property Name="IdCatalog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProvider" Type="Int32" />
+    <Property Name="Season" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StarActiveDate" Type="DateTime" Precision="3" />
+    <Property Name="EndActiveDate" Type="DateTime" Precision="3" />
+    <Property Name="DateUpdate" Type="DateTime" Precision="3" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CatProvider" Relationship="Self.FK_CatCatalogsCatProviders" FromRole="CatCatalogs" ToRole="CatProviders" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_CatCatalogsProducts" FromRole="CatCatalogs" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="CatColor">
+    <Key>
+      <PropertyRef Name="IdColor" />
+    </Key>
+    <Property Name="IdColor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HexaDecimal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsEnable" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_CatColorsProducts" FromRole="CatColors" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="CatProvider">
+    <Key>
+      <PropertyRef Name="IdProvider" />
+    </Key>
+    <Property Name="IdProvider" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsEnabled" Type="Boolean" />
+    <Property Name="DateUpdate" Type="DateTime" Precision="3" />
+    <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CatCatalogs" Relationship="Self.FK_CatCatalogsCatProviders" FromRole="CatProviders" ToRole="CatCatalogs" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_ProductsCatProviders" FromRole="CatProviders" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="CatRating">
+    <Key>
+      <PropertyRef Name="IdRating" />
+    </Key>
+    <Property Name="IdRating" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_CatRatingsComments" FromRole="CatRatings" ToRole="Comments" />
+    <NavigationProperty Name="Qualifications" Relationship="Self.FK_CatRatingsQualification" FromRole="CatRatings" ToRole="Qualification" />
+  </EntityType>
+  <EntityType Name="CatSize">
+    <Key>
+      <PropertyRef Name="IdSize" />
+    </Key>
+    <Property Name="IdSize" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdType" Type="Int32" Nullable="false" />
+    <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Unity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SizeForProducts" Relationship="Self.FK_CatSizesSizeForProduct" FromRole="CatSizes" ToRole="SizeForProduct" />
+    <NavigationProperty Name="CatTypeProduct" Relationship="Self.FK_CatTypeProductCatSizes" FromRole="CatSizes" ToRole="CatTypeProduct" />
+  </EntityType>
+  <EntityType Name="CatTypeDetail">
+    <Key>
+      <PropertyRef Name="IdTypeDetail" />
+    </Key>
+    <Property Name="IdTypeDetail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdType" Type="Int32" Nullable="false" />
+    <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="DetailProducts" Relationship="Self.FK_CatTypeDetailsDetailProduct" FromRole="CatTypeDetails" ToRole="DetailProduct" />
+    <NavigationProperty Name="CatTypeProduct" Relationship="Self.FK_CatTypeProductCatTypeDetails" FromRole="CatTypeDetails" ToRole="CatTypeProduct" />
+  </EntityType>
+  <EntityType Name="CatTypeProduct">
+    <Key>
+      <PropertyRef Name="IdType" />
+    </Key>
+    <Property Name="IdType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CatSizes" Relationship="Self.FK_CatTypeProductCatSizes" FromRole="CatTypeProduct" ToRole="CatSizes" />
+    <NavigationProperty Name="CatTypeDetails" Relationship="Self.FK_CatTypeProductCatTypeDetails" FromRole="CatTypeProduct" ToRole="CatTypeDetails" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_CatTypeProductProducts" FromRole="CatTypeProduct" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="IdComent" />
+    </Key>
+    <Property Name="IdComent" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProduct" Type="Int32" Nullable="false" />
+    <Property Name="IdRating" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateCommnet" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CatRating" Relationship="Self.FK_CatRatingsComments" FromRole="Comments" ToRole="CatRatings" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductsComments" FromRole="Comments" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="database_firewall_rules1">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="DetailProduct">
+    <Key>
+      <PropertyRef Name="IdDetail" />
+    </Key>
+    <Property Name="IdDetail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProduct" Type="Int32" Nullable="false" />
+    <Property Name="IdTypeDetail" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateUpdate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="CatTypeDetail" Relationship="Self.FK_CatTypeDetailsDetailProduct" FromRole="DetailProduct" ToRole="CatTypeDetails" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductsDetailProduct" FromRole="DetailProduct" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="ImagesProduct">
+    <Key>
+      <PropertyRef Name="IdImage" />
+    </Key>
+    <Property Name="IdImage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProduct" Type="Int32" Nullable="false" />
+    <Property Name="Decription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_IDProducto" FromRole="ImagesProduct" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdType" Type="Int32" />
+    <Property Name="IdColor" Type="Int32" />
+    <Property Name="IdBrand" Type="Int32" />
+    <Property Name="IdProvider" Type="Int32" />
+    <Property Name="IdCatalog" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Observations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PriceDistributor" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="PriceClient" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="PriceMember" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="Keywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CatBrand" Relationship="Self.FK_CatBrandsProducts" FromRole="Products" ToRole="CatBrands" />
+    <NavigationProperty Name="CatCatalog" Relationship="Self.FK_CatCatalogsProducts" FromRole="Products" ToRole="CatCatalogs" />
+    <NavigationProperty Name="CatColor" Relationship="Self.FK_CatColorsProducts" FromRole="Products" ToRole="CatColors" />
+    <NavigationProperty Name="CatProvider" Relationship="Self.FK_ProductsCatProviders" FromRole="Products" ToRole="CatProviders" />
+    <NavigationProperty Name="CatTypeProduct" Relationship="Self.FK_CatTypeProductProducts" FromRole="Products" ToRole="CatTypeProduct" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_ProductsComments" FromRole="Products" ToRole="Comments" />
+    <NavigationProperty Name="DetailProducts" Relationship="Self.FK_ProductsDetailProduct" FromRole="Products" ToRole="DetailProduct" />
+    <NavigationProperty Name="ImagesProducts" Relationship="Self.FK_IDProducto" FromRole="Products" ToRole="ImagesProduct" />
+    <NavigationProperty Name="SimilarProducts" Relationship="Self.FK_ProductsSimilarProduct" FromRole="Products" ToRole="SimilarProduct" />
+    <NavigationProperty Name="SizeForProducts" Relationship="Self.FK_ProductsSizeForProduct" FromRole="Products" ToRole="SizeForProduct" />
+    <NavigationProperty Name="Qualifications" Relationship="Self.FK_QualificationProducts" FromRole="Products" ToRole="Qualification" />
+  </EntityType>
+  <EntityType Name="Qualification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProduct" Type="Int32" Nullable="false" />
+    <Property Name="IdRating" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CatRating" Relationship="Self.FK_CatRatingsQualification" FromRole="Qualification" ToRole="CatRatings" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_QualificationProducts" FromRole="Qualification" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="SimilarProduct">
+    <Key>
+      <PropertyRef Name="IdSimilarProduct" />
+    </Key>
+    <Property Name="IdSimilarProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProduct" Type="Int32" Nullable="false" />
+    <Property Name="IdSimilary" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductsSimilarProduct" FromRole="SimilarProduct" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="SizeForProduct">
+    <Key>
+      <PropertyRef Name="IdSizeProduct" />
+    </Key>
+    <Property Name="IdSizeProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProduct" Type="Int32" Nullable="false" />
+    <Property Name="IdSize" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CatSize" Relationship="Self.FK_CatSizesSizeForProduct" FromRole="SizeForProduct" ToRole="CatSizes" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductsSizeForProduct" FromRole="SizeForProduct" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="database_firewall_rules2">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="FK_CatBrandsProducts">
+    <End Role="CatBrands" Type="Self.CatBrand" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatBrands">
+        <PropertyRef Name="IdBrand" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="IdBrand" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatCatalogsCatProviders">
+    <End Role="CatProviders" Type="Self.CatProvider" Multiplicity="0..1" />
+    <End Role="CatCatalogs" Type="Self.CatCatalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatProviders">
+        <PropertyRef Name="IdProvider" />
+      </Principal>
+      <Dependent Role="CatCatalogs">
+        <PropertyRef Name="IdProvider" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatCatalogsProducts">
+    <End Role="CatCatalogs" Type="Self.CatCatalog" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatCatalogs">
+        <PropertyRef Name="IdCatalog" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="IdCatalog" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatColorsProducts">
+    <End Role="CatColors" Type="Self.CatColor" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatColors">
+        <PropertyRef Name="IdColor" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="IdColor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductsCatProviders">
+    <End Role="CatProviders" Type="Self.CatProvider" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatProviders">
+        <PropertyRef Name="IdProvider" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="IdProvider" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatRatingsComments">
+    <End Role="CatRatings" Type="Self.CatRating" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatRatings">
+        <PropertyRef Name="IdRating" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="IdRating" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatRatingsQualification">
+    <End Role="CatRatings" Type="Self.CatRating" Multiplicity="1" />
+    <End Role="Qualification" Type="Self.Qualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatRatings">
+        <PropertyRef Name="IdRating" />
+      </Principal>
+      <Dependent Role="Qualification">
+        <PropertyRef Name="IdRating" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatSizesSizeForProduct">
+    <End Role="CatSizes" Type="Self.CatSize" Multiplicity="1" />
+    <End Role="SizeForProduct" Type="Self.SizeForProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatSizes">
+        <PropertyRef Name="IdSize" />
+      </Principal>
+      <Dependent Role="SizeForProduct">
+        <PropertyRef Name="IdSize" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatTypeProductCatSizes">
+    <End Role="CatTypeProduct" Type="Self.CatTypeProduct" Multiplicity="1" />
+    <End Role="CatSizes" Type="Self.CatSize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatTypeProduct">
+        <PropertyRef Name="IdType" />
+      </Principal>
+      <Dependent Role="CatSizes">
+        <PropertyRef Name="IdType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatTypeDetailsDetailProduct">
+    <End Role="CatTypeDetails" Type="Self.CatTypeDetail" Multiplicity="1" />
+    <End Role="DetailProduct" Type="Self.DetailProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatTypeDetails">
+        <PropertyRef Name="IdTypeDetail" />
+      </Principal>
+      <Dependent Role="DetailProduct">
+        <PropertyRef Name="IdTypeDetail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatTypeProductCatTypeDetails">
+    <End Role="CatTypeProduct" Type="Self.CatTypeProduct" Multiplicity="1" />
+    <End Role="CatTypeDetails" Type="Self.CatTypeDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatTypeProduct">
+        <PropertyRef Name="IdType" />
+      </Principal>
+      <Dependent Role="CatTypeDetails">
+        <PropertyRef Name="IdType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatTypeProductProducts">
+    <End Role="CatTypeProduct" Type="Self.CatTypeProduct" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatTypeProduct">
+        <PropertyRef Name="IdType" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="IdType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductsComments">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="IdProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductsDetailProduct">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="DetailProduct" Type="Self.DetailProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DetailProduct">
+        <PropertyRef Name="IdProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IDProducto">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="ImagesProduct" Type="Self.ImagesProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ImagesProduct">
+        <PropertyRef Name="IdProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductsSimilarProduct">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="SimilarProduct" Type="Self.SimilarProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SimilarProduct">
+        <PropertyRef Name="IdProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductsSizeForProduct">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="SizeForProduct" Type="Self.SizeForProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SizeForProduct">
+        <PropertyRef Name="IdProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QualificationProducts">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="Qualification" Type="Self.Qualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Qualification">
+        <PropertyRef Name="IdProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DataProductsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CatBrands" EntityType="Self.CatBrand" />
+    <EntitySet Name="CatCatalogs" EntityType="Self.CatCatalog" />
+    <EntitySet Name="CatColors" EntityType="Self.CatColor" />
+    <EntitySet Name="CatProviders" EntityType="Self.CatProvider" />
+    <EntitySet Name="CatRatings" EntityType="Self.CatRating" />
+    <EntitySet Name="CatSizes" EntityType="Self.CatSize" />
+    <EntitySet Name="CatTypeDetails" EntityType="Self.CatTypeDetail" />
+    <EntitySet Name="CatTypeProducts" EntityType="Self.CatTypeProduct" />
+    <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
+    <EntitySet Name="database_firewall_rules1" EntityType="Self.database_firewall_rules1" />
+    <EntitySet Name="DetailProducts" EntityType="Self.DetailProduct" />
+    <EntitySet Name="ImagesProducts" EntityType="Self.ImagesProduct" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="Qualifications" EntityType="Self.Qualification" />
+    <EntitySet Name="SimilarProducts" EntityType="Self.SimilarProduct" />
+    <EntitySet Name="SizeForProducts" EntityType="Self.SizeForProduct" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="database_firewall_rules2" EntityType="Self.database_firewall_rules2" />
+    <AssociationSet Name="FK_CatBrandsProducts" Association="Self.FK_CatBrandsProducts">
+      <End Role="CatBrands" EntitySet="CatBrands" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatCatalogsCatProviders" Association="Self.FK_CatCatalogsCatProviders">
+      <End Role="CatProviders" EntitySet="CatProviders" />
+      <End Role="CatCatalogs" EntitySet="CatCatalogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatCatalogsProducts" Association="Self.FK_CatCatalogsProducts">
+      <End Role="CatCatalogs" EntitySet="CatCatalogs" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatColorsProducts" Association="Self.FK_CatColorsProducts">
+      <End Role="CatColors" EntitySet="CatColors" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductsCatProviders" Association="Self.FK_ProductsCatProviders">
+      <End Role="CatProviders" EntitySet="CatProviders" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatRatingsComments" Association="Self.FK_CatRatingsComments">
+      <End Role="CatRatings" EntitySet="CatRatings" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatRatingsQualification" Association="Self.FK_CatRatingsQualification">
+      <End Role="CatRatings" EntitySet="CatRatings" />
+      <End Role="Qualification" EntitySet="Qualifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatSizesSizeForProduct" Association="Self.FK_CatSizesSizeForProduct">
+      <End Role="CatSizes" EntitySet="CatSizes" />
+      <End Role="SizeForProduct" EntitySet="SizeForProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatTypeProductCatSizes" Association="Self.FK_CatTypeProductCatSizes">
+      <End Role="CatTypeProduct" EntitySet="CatTypeProducts" />
+      <End Role="CatSizes" EntitySet="CatSizes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatTypeDetailsDetailProduct" Association="Self.FK_CatTypeDetailsDetailProduct">
+      <End Role="CatTypeDetails" EntitySet="CatTypeDetails" />
+      <End Role="DetailProduct" EntitySet="DetailProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatTypeProductCatTypeDetails" Association="Self.FK_CatTypeProductCatTypeDetails">
+      <End Role="CatTypeProduct" EntitySet="CatTypeProducts" />
+      <End Role="CatTypeDetails" EntitySet="CatTypeDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatTypeProductProducts" Association="Self.FK_CatTypeProductProducts">
+      <End Role="CatTypeProduct" EntitySet="CatTypeProducts" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductsComments" Association="Self.FK_ProductsComments">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductsDetailProduct" Association="Self.FK_ProductsDetailProduct">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="DetailProduct" EntitySet="DetailProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IDProducto" Association="Self.FK_IDProducto">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ImagesProduct" EntitySet="ImagesProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductsSimilarProduct" Association="Self.FK_ProductsSimilarProduct">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="SimilarProduct" EntitySet="SimilarProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductsSizeForProduct" Association="Self.FK_ProductsSizeForProduct">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="SizeForProduct" EntitySet="SizeForProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QualificationProducts" Association="Self.FK_QualificationProducts">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Qualification" EntitySet="Qualifications" />
+    </AssociationSet>
+    <FunctionImport Name="ACOB_DeleteProd">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ACOB_GetColors" ReturnType="Collection(DataProductsModel.ACOB_GetColors_Result)" />
+    <FunctionImport Name="ACOB_GetImages" ReturnType="Collection(DataProductsModel.ACOB_GetImages_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ACOB_GetSizeForEachProduct" ReturnType="Collection(DataProductsModel.ACOB_GetSizeForEachProduct_Result)">
+      <Parameter Name="idProducto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ACOB_GetSizes" ReturnType="Collection(DataProductsModel.ACOB_GetSizes_Result)" />
+    <FunctionImport Name="ACOB_InsertColor">
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="desc" Mode="In" Type="String" />
+      <Parameter Name="hexa" Mode="In" Type="String" />
+      <Parameter Name="isEn" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="ACOB_InsertImages">
+      <Parameter Name="idProduct" Mode="In" Type="Int32" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Image" Mode="In" Type="Binary" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+      <Parameter Name="IsEnable" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="ACOB_InsertProduct">
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="ACOB_InsertSize">
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="Code" Mode="In" Type="String" />
+      <Parameter Name="Unity" Mode="In" Type="String" />
+      <Parameter Name="Desc" Mode="In" Type="String" />
+      <Parameter Name="Value" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ACOB_InsertSizeProduct">
+      <Parameter Name="idProduct" Mode="In" Type="Int32" />
+      <Parameter Name="idSize" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ACOB_SearchByIdOrName" ReturnType="Collection(DataProductsModel.ACOB_SearchByIdOrName_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ACOB_UpdateProduct">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="ACOB_UpdateSizeProduct">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="idProduct" Mode="In" Type="Int32" />
+      <Parameter Name="idSize" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ADER1_GetImagesByProductID" ReturnType="Collection(Binary)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ADER1_GetSizesOfProduct" ReturnType="Collection(String)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ADER1_InsertProduct">
+      <Parameter Name="IDType" Mode="In" Type="Int32" />
+      <Parameter Name="IDColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="ADER1_SearchProducts" ReturnType="Collection(DataProductsModel.ADER1_SearchProducts_Result)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AVHM_BusquedaID" ReturnType="Collection(DataProductsModel.AVHM_BusquedaID_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AVHM_BusquedaNombre" ReturnType="Collection(DataProductsModel.AVHM_BusquedaNombre_Result)">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AVHM_Eliminar">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AVHM_EliminarLogico">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AVHM_Modificar">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="idType" Mode="In" Type="Int32" />
+      <Parameter Name="idColor" Mode="In" Type="Int32" />
+      <Parameter Name="idBrand" Mode="In" Type="Int32" />
+      <Parameter Name="idProvider" Mode="In" Type="Int32" />
+      <Parameter Name="idCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="AVHM_MostrarProducts" ReturnType="Collection(DataProductsModel.AVHM_MostrarProducts_Result)" />
+    <FunctionImport Name="AVHM_SP_InsertProd">
+      <Parameter Name="idType" Mode="In" Type="Int32" />
+      <Parameter Name="idColor" Mode="In" Type="Int32" />
+      <Parameter Name="idBrand" Mode="In" Type="Int32" />
+      <Parameter Name="idProvider" Mode="In" Type="Int32" />
+      <Parameter Name="idCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="BRTV_Delete">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="BRTV_Insert">
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="BRTV_SearchID" ReturnType="Collection(DataProductsModel.BRTV_SearchID_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="BRTV_SearchName" ReturnType="Collection(DataProductsModel.BRTV_SearchName_Result)">
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="BRTV_updateM">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observation" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="CAOE_BUSCAR" ReturnType="Collection(DataProductsModel.CAOE_BUSCAR_Result)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CAOE_INSERTAR">
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="dena_sp_BusquedaProdId" ReturnType="Collection(DataProductsModel.dena_sp_BusquedaProdId_Result)">
+      <Parameter Name="Id" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dena_sp_BusquedaProdNom" ReturnType="Collection(DataProductsModel.dena_sp_BusquedaProdNom_Result)">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dena_sp_EliminarProduct">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="dena_sp_InsertProd">
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="dena_sp_ModificarProd">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="idType" Mode="In" Type="Int32" />
+      <Parameter Name="idColor" Mode="In" Type="Int32" />
+      <Parameter Name="idBrand" Mode="In" Type="Int32" />
+      <Parameter Name="idProvider" Mode="In" Type="Int32" />
+      <Parameter Name="idCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="dena_sp_MostrarTodo" ReturnType="Collection(DataProductsModel.dena_sp_MostrarTodo_Result)" />
+    <FunctionImport Name="eumc1_deleteProductById">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="eumc1_disableProductById">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="eumc1_editProduct">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="eumc1_getAllProviders" ReturnType="Collection(DataProductsModel.eumc1_getAllProviders_Result)" />
+    <FunctionImport Name="eumc1_getProductByIdOrName" ReturnType="Collection(DataProductsModel.eumc1_getProductByIdOrName_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="eumc1_getProductColors" ReturnType="Collection(DataProductsModel.eumc1_getProductColors_Result)" />
+    <FunctionImport Name="FASV1_AllColor" ReturnType="Collection(DataProductsModel.FASV1_AllColor_Result)" />
+    <FunctionImport Name="FASV1_DeleteLogic">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="FASV1_FilterById" ReturnType="Collection(DataProductsModel.FASV1_FilterById_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="FASV1_FilterByTitle" ReturnType="Collection(DataProductsModel.FASV1_FilterByTitle_Result)">
+      <Parameter Name="Title" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="FASV1_GetAllProducts" ReturnType="Collection(DataProductsModel.FASV1_GetAllProducts_Result)" />
+    <FunctionImport Name="FASV1_InsertProduct">
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="PriceCliente" Mode="In" Type="Decimal" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="FASV1_ModifyProduct">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="PriceCliente" Mode="In" Type="Decimal" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="FAVV_AgregaImagen">
+      <Parameter Name="idProduct" Mode="In" Type="Int32" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Image" Mode="In" Type="Binary" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+      <Parameter Name="IsEnable" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="FAVV_BuscaNombrePorId" ReturnType="Collection(String)">
+      <Parameter Name="elId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="FAVV_CatCatalogsSeason" ReturnType="Collection(String)" />
+    <FunctionImport Name="FAVV_DescripcionesDeCategotias" ReturnType="Collection(String)" />
+    <FunctionImport Name="FAVV_EncuentraIdBrandPorMarca" ReturnType="Collection(Int32)">
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="FAVV_EncuentraIdCatalogPorDescripcion" ReturnType="Collection(Int32)">
+      <Parameter Name="Des" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="FAVV_EncuentraIdCatalogPorSeason" ReturnType="Collection(Int32)">
+      <Parameter Name="Season" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="FAVV_EncuentraIdColorPorName" ReturnType="Collection(Int32)">
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="FAVV_EncuentraIdProviderPorNombre" ReturnType="Collection(Int32)">
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="FAVV_ImagenesDeProducto" ReturnType="Collection(Binary)">
+      <Parameter Name="elId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="FAVV_NombresColores" ReturnType="Collection(String)" />
+    <FunctionImport Name="FAVV_NombresDeProductos" ReturnType="Collection(String)" />
+    <FunctionImport Name="FAVV_NombresMarcas" ReturnType="Collection(String)" />
+    <FunctionImport Name="FAVV_NombresProvedores" ReturnType="Collection(String)" />
+    <FunctionImport Name="JEVJ1_ActualizaProducto">
+      <Parameter Name="ProductId" Mode="In" Type="Int32" />
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DataUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="JEVJ1_BuscaProductoPorID" ReturnType="Collection(DataProductsModel.JEVJ1_BuscaProductoPorID_Result)">
+      <Parameter Name="ProductId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="JEVJ1_BuscaProductoPorNombre" ReturnType="Collection(DataProductsModel.JEVJ1_BuscaProductoPorNombre_Result)">
+      <Parameter Name="ProductName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="JEVJ1_EliminaProductoPorID">
+      <Parameter Name="ProductId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="JEVJ1_InsertaNuevoProducto">
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DataUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="JEVJ1_MuestraProductos" ReturnType="Collection(DataProductsModel.JEVJ1_MuestraProductos_Result)" />
+    <FunctionImport Name="JRCV1_DeleteLogicIsEnabled">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="JRCV1_GetColors" ReturnType="Collection(DataProductsModel.JRCV1_GetColors_Result)" />
+    <FunctionImport Name="JRCV1_GetImages" ReturnType="Collection(DataProductsModel.JRCV1_GetImages_Result)">
+      <Parameter Name="IdProduct" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="JRCV1_GetSizes" ReturnType="Collection(DataProductsModel.JRCV1_GetSizes_Result)" />
+    <FunctionImport Name="JRCV1_InserNewProduct">
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Tittle" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="JRCV1_InsertImages">
+      <Parameter Name="idProduct" Mode="In" Type="Int32" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Image" Mode="In" Type="Binary" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+      <Parameter Name="IsEnable" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="JRCV1_SearchShoesProduct" ReturnType="Collection(DataProductsModel.JRCV1_SearchShoesProduct_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="JRCV1_UpdateProduct">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="LFGC1_AllProducts" ReturnType="Collection(DataProductsModel.LFGC1_AllProducts_Result)" />
+    <FunctionImport Name="LFGC1_DeleteProductID">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LFGC1_InsertProduct">
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DataUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="LFGC1_SearchProductID" ReturnType="Collection(DataProductsModel.LFGC1_SearchProductID_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LFGC1_SearchProductName" ReturnType="Collection(DataProductsModel.LFGC1_SearchProductName_Result)">
+      <Parameter Name="ProductName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="LFGC1_UpdateProduct">
+      <Parameter Name="ProductId" Mode="In" Type="Int32" />
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DataUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="MPVI_AGREGATE">
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DataUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="MPVI_SEARCH_ALL" ReturnType="Collection(DataProductsModel.MPVI_SEARCH_ALL_Result)" />
+    <FunctionImport Name="MPVI_SEARCH_ID" ReturnType="Collection(DataProductsModel.MPVI_SEARCH_ID_Result)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="MPVI_SEARCH_NOMBRE" ReturnType="Collection(DataProductsModel.MPVI_SEARCH_NOMBRE_Result)">
+      <Parameter Name="NOMBRE" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="NMRH_ID" ReturnType="Collection(DataProductsModel.NMRH_ID_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="NMRH_lOOK" ReturnType="Collection(DataProductsModel.NMRH_lOOK_Result)" />
+    <FunctionImport Name="NMRH_Nombre" ReturnType="Collection(DataProductsModel.NMRH_Nombre_Result)">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SEMD_AddShoes">
+      <Parameter Name="IdType" Mode="In" Type="Int32" />
+      <Parameter Name="IdColor" Mode="In" Type="Int32" />
+      <Parameter Name="IdBrand" Mode="In" Type="Int32" />
+      <Parameter Name="IdProvider" Mode="In" Type="Int32" />
+      <Parameter Name="IdCatalog" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Observations" Mode="In" Type="String" />
+      <Parameter Name="PriceDistributor" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceClient" Mode="In" Type="Decimal" />
+      <Parameter Name="PriceMember" Mode="In" Type="Decimal" />
+      <Parameter Name="IsEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="Keywords" Mode="In" Type="String" />
+      <Parameter Name="DateUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SEMD_SearchById" ReturnType="Collection(DataProductsModel.SEMD_SearchById_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SEMD_SearchByName" ReturnType="Collection(DataProductsModel.SEMD_SearchByName_Result)">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SEMD_SearchProducts" ReturnType="Collection(DataProductsModel.SEMD_SearchProducts_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Show" ReturnType="Collection(DataProductsModel.Show_Result)" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DataProductsModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DataProductsModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="ChangesOnProducts" EntityType="DataProductsModel.ChangesOnProduct" />
+  </EntityContainer>
+  <ComplexType Name="ACOB_GetColors_Result">
+    <Property Type="Int32" Name="IdColor" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="HexaDecimal" Nullable="false" />
+    <Property Type="Boolean" Name="IsEnable" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="ACOB_GetImages_Result">
+    <Property Type="Int32" Name="IdImage" Nullable="false" />
+    <Property Type="Int32" Name="IdProduct" Nullable="false" />
+    <Property Type="String" Name="Decription" Nullable="true" />
+    <Property Type="Binary" Name="Image" Nullable="false" MaxLength="Max" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="false" Precision="23" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="ACOB_GetSizeForEachProduct_Result">
+    <Property Type="Int32" Name="IdProduct" Nullable="false" />
+    <Property Type="String" Name="Code" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="ACOB_GetSizes_Result">
+    <Property Type="Int32" Name="IdSize" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="false" />
+    <Property Type="String" Name="Code" Nullable="false" />
+    <Property Type="String" Name="Unity" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Value" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="ACOB_SearchByIdOrName_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="ADER1_SearchProducts_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="String" Name="HexaDecimal" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="AVHM_BusquedaID_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="AVHM_BusquedaNombre_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="AVHM_MostrarProducts_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="BRTV_SearchID_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="BRTV_SearchName_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="CAOE_BUSCAR_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="dena_sp_BusquedaProdId_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="dena_sp_BusquedaProdNom_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="dena_sp_MostrarTodo_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="eumc1_getAllProviders_Result">
+    <Property Type="Int32" Name="IdProvider" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="true" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Url" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="eumc1_getProductByIdOrName_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="eumc1_getProductColors_Result">
+    <Property Type="Int32" Name="IdColor" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="HexaDecimal" Nullable="false" />
+    <Property Type="Boolean" Name="IsEnable" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="FASV1_AllColor_Result">
+    <Property Type="Int32" Name="IdColor" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="FASV1_FilterById_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="FASV1_FilterByTitle_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="FASV1_GetAllProducts_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="JEVJ1_BuscaProductoPorID_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="JEVJ1_BuscaProductoPorNombre_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="JEVJ1_MuestraProductos_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="JRCV1_GetColors_Result">
+    <Property Type="Int32" Name="IdColor" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="HexaDecimal" Nullable="false" />
+    <Property Type="Boolean" Name="IsEnable" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="JRCV1_GetImages_Result">
+    <Property Type="Int32" Name="IdImage" Nullable="false" />
+    <Property Type="Int32" Name="IdProduct" Nullable="false" />
+    <Property Type="String" Name="Decription" Nullable="true" />
+    <Property Type="Binary" Name="Image" Nullable="false" MaxLength="Max" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="false" Precision="23" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="JRCV1_GetSizes_Result">
+    <Property Type="Int32" Name="IdSize" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="false" />
+    <Property Type="String" Name="Code" Nullable="false" />
+    <Property Type="String" Name="Unity" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Value" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="JRCV1_SearchShoesProduct_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="LFGC1_AllProducts_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="LFGC1_SearchProductID_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="LFGC1_SearchProductName_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="MPVI_SEARCH_ALL_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="MPVI_SEARCH_ID_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="MPVI_SEARCH_NOMBRE_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="NMRH_ID_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="NMRH_lOOK_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="NMRH_Nombre_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="SEMD_SearchById_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="SEMD_SearchByName_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="SEMD_SearchProducts_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="Show_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="IdType" Nullable="true" />
+    <Property Type="Int32" Name="IdColor" Nullable="true" />
+    <Property Type="Int32" Name="IdBrand" Nullable="true" />
+    <Property Type="Int32" Name="IdProvider" Nullable="true" />
+    <Property Type="Int32" Name="IdCatalog" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Observations" Nullable="false" />
+    <Property Type="Decimal" Name="PriceDistributor" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceClient" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="PriceMember" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="IsEnabled" Nullable="false" />
+    <Property Type="String" Name="Keywords" Nullable="true" />
+    <Property Type="DateTime" Name="DateUpdate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="ChangesOnProduct">
+    <Key>
+      <PropertyRef Name="IdLog" />
+    </Key>
+    <Property Name="IdLog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProduct" Type="Int32" Nullable="false" />
+    <Property Name="ActionMade" Type="Byte" Nullable="false" />
+  </EntityType>
+</Schema>
